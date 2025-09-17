@@ -16,7 +16,16 @@ public class Part1 {
 	 * @throws IOException
 	 */
 	public static void doIt(BufferedReader r, PrintWriter w) throws IOException {
-		// Your code goes here - see Part0 for an example
+		String[] strings = r.lines().toArray(String[]::new);
+		int length = strings.length;
+		int mid = (int) Math.floor(length/2.0);
+		// System.out.println(strings[mid]);
+		for (int i = mid; i < length; i++){
+			w.println(strings[i]);
+		}
+		for (int i = 0; i < mid; i++){
+			w.println(strings[i]);
+		}
 	}
 
 	/**
