@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 public class Part2 {
 	
@@ -16,7 +17,11 @@ public class Part2 {
 	 * @throws IOException
 	 */
 	public static void doIt(BufferedReader r, PrintWriter w) throws IOException {
-		// Your code goes here - see Part0 for an example
+		String[] strings = r.lines().toArray(String[]::new);
+		Arrays.sort(strings);
+		for(String l : strings) {
+			w.println(l);
+		}
 	}
 
 	/**
