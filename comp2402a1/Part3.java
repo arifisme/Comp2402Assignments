@@ -31,7 +31,6 @@ public class Part3 {
 		for(String line : strings) {
 			w.println(line);
 		}
-		w.println(strings);
 	}
 
 	/**
