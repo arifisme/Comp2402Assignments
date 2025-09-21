@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class Part2 {
 	
@@ -18,9 +19,15 @@ public class Part2 {
 	 */
 	public static void doIt(BufferedReader r, PrintWriter w) throws IOException {
 		String[] strings = r.lines().toArray(String[]::new);
-		Arrays.sort(strings);
-		for(String l : strings) {
-			w.println(l);
+		 Integer[] indices = new Integer[strings.length];
+		for (int i = 0; i < strings.length; i++) {
+			indices[i] = i;
+		}
+
+		Arrays.sort(indices, Comparator.comparing(i -> strings[i]));
+
+		for (int i : indices) {
+			w.println(i);
 		}
 	}
 
