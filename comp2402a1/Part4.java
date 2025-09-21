@@ -16,17 +16,14 @@ public class Part4 {
 	 * @throws IOException
 	 */
 	public static void doIt(BufferedReader r, PrintWriter w) throws IOException {
-		int minLengthFromPreviousLines = Integer.MAX_VALUE;
-		// int count = 0;
+		String minSoFar = null;
+
 		for (String line = r.readLine(); line != null; line = r.readLine()) {
-			// w.println(line + " " + count);
-			if (line.length() <= minLengthFromPreviousLines) {
+			if (minSoFar == null || line.compareTo(minSoFar) <= 0) {
 				w.println(line);
-				minLengthFromPreviousLines = line.length();
-				// count++;
+				minSoFar = line;
 			}
 		}
-		// w.println(minLengthFromPreviousLines);
 	}
 
 	/**
