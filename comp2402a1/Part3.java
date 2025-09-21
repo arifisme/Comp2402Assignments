@@ -6,6 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class Part3 {
 	
@@ -16,7 +18,20 @@ public class Part3 {
 	 * @throws IOException
 	 */
 	public static void doIt(BufferedReader r, PrintWriter w) throws IOException {
-		// Your code goes here - see Part0 for an example
+		Deque<String> strings = new ArrayDeque<>();
+		int count = 0;
+		for (String line = r.readLine(); line != null; line = r.readLine()) {
+			if (count >= 9999) {
+				strings.pollFirst();
+			}
+			count++;
+            strings.addLast(line);
+        }
+
+		for(String line : strings) {
+			w.println(line);
+		}
+		w.println(strings);
 	}
 
 	/**
