@@ -16,7 +16,17 @@ public class Part4 {
 	 * @throws IOException
 	 */
 	public static void doIt(BufferedReader r, PrintWriter w) throws IOException {
-		// Your code goes here - see Part0 for an example
+		int minLengthFromPreviousLines = Integer.MAX_VALUE;
+		// int count = 0;
+		for (String line = r.readLine(); line != null; line = r.readLine()) {
+			// w.println(line + " " + count);
+			if (line.length() <= minLengthFromPreviousLines) {
+				w.println(line);
+				minLengthFromPreviousLines = line.length();
+				// count++;
+			}
+		}
+		// w.println(minLengthFromPreviousLines);
 	}
 
 	/**
