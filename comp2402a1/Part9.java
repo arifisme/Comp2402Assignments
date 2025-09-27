@@ -17,17 +17,17 @@ public class Part9 {
 	 * @throws IOException
 	 */
 	public static void doIt(BufferedReader r, PrintWriter w) throws IOException {
-		int THRESHOLD = 3;
 		HashMap<String, Integer> counts = new java.util.HashMap<>();
 		String line;
 
 		while ((line = r.readLine()) != null) {
 			int cnt = counts.getOrDefault(line, 0) + 1;
 			counts.put(line, cnt);
-			if (cnt >= THRESHOLD) {
+
+			if (cnt > 3) { // print only from 4th time onward
 				w.println(line);
 			}
-		}
+    	}
 	}
 
 	/**

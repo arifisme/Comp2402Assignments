@@ -17,20 +17,26 @@ public class Part8 {
 	 * @throws IOException
 	 */
 	public static void doIt(BufferedReader r, PrintWriter w) throws IOException {
-		String maxSeen = null; 
-		String lastOutput = null; 
+		String maxSeen = null;
+		String lastOutput = null;
 		String line;
 
 		while ((line = r.readLine()) != null) {
-			boolean greaterThanAllPrev = (maxSeen == null) || (line.compareTo(maxSeen) > 0);
-			boolean smallerThanLastOutput = (lastOutput != null) && (line.compareTo(lastOutput) < 0);
+			boolean shouldOutput = false;
 
-			if (greaterThanAllPrev || smallerThanLastOutput) {
+			if (maxSeen == null || line.compareTo(maxSeen) > 0) {
+				// first line, or strictly greater than everything before
+				shouldOutput = true;
+			} else if (lastOutput != null && line.compareTo(lastOutput) < 0) {
+				// smaller than the last thing we output
+				shouldOutput = true;
+			}
+
+			if (shouldOutput) {
 				w.println(line);
 				lastOutput = line;
 			}
 
-			// incorporate current line into maxSeen for future comparisons
 			if (maxSeen == null || line.compareTo(maxSeen) > 0) {
 				maxSeen = line;
 			}
