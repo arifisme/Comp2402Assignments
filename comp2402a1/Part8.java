@@ -21,23 +21,29 @@ public class Part8 {
 		String lastOutput = null;
 		String line;
 
-		while ((line = r.readLine()) != null) {
-			boolean shouldOutput = false;
-
-			if (maxSeen == null || line.compareTo(maxSeen) > 0) {
-				// first line, or strictly greater than everything before
-				shouldOutput = true;
-			} else if (lastOutput != null && line.compareTo(lastOutput) < 0) {
-				// smaller than the last thing we output
-				shouldOutput = true;
+		java.util.function.BiFunction<String,String,Integer> cmp = (a, b) -> {
+			if (a == null && b == null) return 0;
+			if (a == null) return -1;
+			if (b == null) return 1;
+			try {
+				long ai = Long.parseLong(a);
+				long bi = Long.parseLong(b);
+				return Long.compare(ai, bi);
+			} catch (NumberFormatException e) {
+				return a.compareTo(b);
 			}
+		};
 
-			if (shouldOutput) {
+		while ((line = r.readLine()) != null) {
+			boolean allPrevSmaller = (maxSeen == null) || (cmp.apply(line, maxSeen) > 0);
+			boolean smallerThanLastOutput = (lastOutput != null) && (cmp.apply(line, lastOutput) < 0);
+
+			if (allPrevSmaller || smallerThanLastOutput) {
 				w.println(line);
 				lastOutput = line;
 			}
 
-			if (maxSeen == null || line.compareTo(maxSeen) > 0) {
+			if (maxSeen == null || cmp.apply(line, maxSeen) > 0) {
 				maxSeen = line;
 			}
 		}
