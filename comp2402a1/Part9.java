@@ -25,8 +25,7 @@ public class Part9 {
 			count++;
 			lineCount.put(line, count);
 			
-			// Output if this is the nth repetition where n > 2
-			if (count > 2) {
+			if (count >= 3) {
 				w.println(line);
 			}
 		}

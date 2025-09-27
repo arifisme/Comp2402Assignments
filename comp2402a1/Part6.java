@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Part6 {
 	
@@ -17,25 +18,20 @@ public class Part6 {
 	 * @throws IOException
 	 */
 	public static void doIt(BufferedReader r, PrintWriter w) throws IOException {
+		HashSet<String> suffixes = new HashSet<>();
 		ArrayList<String> previousLines = new ArrayList<>();
 		String line;
 		
 		while ((line = r.readLine()) != null) {
-			boolean isEnding = false;
-			
-			// Check if current line is the ending of any previous line
-			for (String prev : previousLines) {
-				if (prev.endsWith(line)) {
-					isEnding = true;
-					break;
-				}
-			}
-			
-			if (!isEnding) {
+			if (!suffixes.contains(line)) {
 				w.println(line);
 			}
 			
+			// Add all suffixes of the current line to the set
 			previousLines.add(line);
+			for (int i = 0; i <= line.length(); i++) {
+				suffixes.add(line.substring(i));
+			}
 		}
 	}
 
