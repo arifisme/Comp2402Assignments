@@ -17,34 +17,29 @@ public class Part8 {
 	 * @throws IOException
 	 */
 	public static void doIt(BufferedReader r, PrintWriter w) throws IOException {
-		String maxSeen = null;
-		String lastOutput = null;
 		String line;
-
-		java.util.function.BiFunction<String,String,Integer> cmp = (a, b) -> {
-			if (a == null && b == null) return 0;
-			if (a == null) return -1;
-			if (b == null) return 1;
-			try {
-				long ai = Long.parseLong(a);
-				long bi = Long.parseLong(b);
-				return Long.compare(ai, bi);
-			} catch (NumberFormatException e) {
-				return a.compareTo(b);
-			}
-		};
+		String lastOutput = null;
+		String maxSoFar = null;
+		boolean firstLine = true;
 
 		while ((line = r.readLine()) != null) {
-			boolean allPrevSmaller = (maxSeen == null) || (cmp.apply(line, maxSeen) > 0);
-			boolean smallerThanLastOutput = (lastOutput != null) && (cmp.apply(line, lastOutput) < 0);
-
-			if (allPrevSmaller || smallerThanLastOutput) {
+			if (firstLine) {
 				w.println(line);
 				lastOutput = line;
-			}
+				maxSoFar = line;
+				firstLine = false;
+			} else {
+				boolean condition1 = line.compareTo(maxSoFar) > 0;
+				boolean condition2 = lastOutput != null && line.compareTo(lastOutput) < 0;
 
-			if (maxSeen == null || cmp.apply(line, maxSeen) > 0) {
-				maxSeen = line;
+				if (condition1 || condition2) {
+					w.println(line);
+					lastOutput = line;
+				}
+
+				if (line.compareTo(maxSoFar) > 0) {
+					maxSoFar = line;
+				}
 			}
 		}
 	}
