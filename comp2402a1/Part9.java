@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.HashMap;
 
 public class Part9 {
 
@@ -16,7 +17,19 @@ public class Part9 {
 	 * @throws IOException
 	 */
 	public static void doIt(BufferedReader r, PrintWriter w) throws IOException {
-		// Your code goes here - see Part0 for an example
+		HashMap<String, Integer> lineCount = new HashMap<>();
+		String line;
+		
+		while ((line = r.readLine()) != null) {
+			int count = lineCount.getOrDefault(line, 0);
+			count++;
+			lineCount.put(line, count);
+			
+			// Output if this is the nth repetition where n > 2
+			if (count > 2) {
+				w.println(line);
+			}
+		}
 	}
 
 	/**

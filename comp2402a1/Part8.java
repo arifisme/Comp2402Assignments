@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 public class Part8 {
 
@@ -16,7 +17,28 @@ public class Part8 {
 	 * @throws IOException
 	 */
 	public static void doIt(BufferedReader r, PrintWriter w) throws IOException {
-		// Your code goes here - see Part0 for an example
+		ArrayList<String> previousLines = new ArrayList<>();
+		String lastOutput = null;
+		String line;
+		
+		while ((line = r.readLine()) != null) {
+			boolean allPreviousSmaller = true;
+			
+			for (String prev : previousLines) {
+				if (prev.compareTo(line) >= 0) {
+					allPreviousSmaller = false;
+					break;
+				}
+			}
+			
+			// Output if all previous are smaller OR current is smaller than last output
+			if (allPreviousSmaller || (lastOutput != null && line.compareTo(lastOutput) < 0)) {
+				w.println(line);
+				lastOutput = line;
+			}
+			
+			previousLines.add(line);
+		}
 	}
 
 	/**

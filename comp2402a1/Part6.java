@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 public class Part6 {
 	
@@ -16,7 +17,26 @@ public class Part6 {
 	 * @throws IOException
 	 */
 	public static void doIt(BufferedReader r, PrintWriter w) throws IOException {
-		// Your code goes here - see Part0 for an example
+		ArrayList<String> previousLines = new ArrayList<>();
+		String line;
+		
+		while ((line = r.readLine()) != null) {
+			boolean isEnding = false;
+			
+			// Check if current line is the ending of any previous line
+			for (String prev : previousLines) {
+				if (prev.endsWith(line)) {
+					isEnding = true;
+					break;
+				}
+			}
+			
+			if (!isEnding) {
+				w.println(line);
+			}
+			
+			previousLines.add(line);
+		}
 	}
 
 	/**

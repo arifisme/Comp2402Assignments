@@ -6,6 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Part5 {
 	
@@ -16,7 +18,19 @@ public class Part5 {
 	 * @throws IOException
 	 */
 	public static void doIt(BufferedReader r, PrintWriter w) throws IOException {
-		// Your code goes here - see Part0 for an example
+		ArrayList<String> lines = new ArrayList<>();
+		String line;
+		
+		
+		while ((line = r.readLine()) != null) {
+			lines.add(line);
+		}
+		
+		Collections.sort(lines, String.CASE_INSENSITIVE_ORDER);
+		
+		for (String s : lines) {
+			w.println(s);
+		}
 	}
 
 	/**

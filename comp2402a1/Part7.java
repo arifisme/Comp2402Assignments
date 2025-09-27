@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 public class Part7 {
 	
@@ -16,7 +17,18 @@ public class Part7 {
 	 * @throws IOException
 	 */
 	public static void doIt(BufferedReader r, PrintWriter w) throws IOException {
-		// Your code goes here - see Part0 for an example
+		ArrayList<String> lines = new ArrayList<>();
+		String line;
+
+		while ((line = r.readLine()) != null) {
+			lines.add(line);
+		}
+
+		for (int i = lines.size() - 1; i >= 0; i--) {
+			if (i == lines.size() - 1 || !lines.get(i).equals(lines.get(i + 1))) {
+				w.println(lines.get(i));
+			}
+		}
 	}
 
 	/**
