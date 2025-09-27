@@ -17,30 +17,29 @@ public class Part8 {
 	 * @throws IOException
 	 */
 	public static void doIt(BufferedReader r, PrintWriter w) throws IOException {
+	    ArrayList<String> allPrevious = new ArrayList<>();
 		String line;
 		String lastOutput = null;
-		String maxSoFar = null;
-		boolean firstLine = true;
-
+		
 		while ((line = r.readLine()) != null) {
-			if (firstLine) {
-				w.println(line);
-				lastOutput = line;
-				maxSoFar = line;
-				firstLine = false;
-			} else {
-				boolean condition1 = line.compareTo(maxSoFar) > 0;
-				boolean condition2 = lastOutput != null && line.compareTo(lastOutput) < 0;
-
-				if (condition1 || condition2) {
-					w.println(line);
-					lastOutput = line;
-				}
-
-				if (line.compareTo(maxSoFar) > 0) {
-					maxSoFar = line;
+			boolean allPreviousSmaller = true;
+			
+			// Check if ALL previous lines are smaller than current
+			for (String prev : allPrevious) {
+				if (prev.compareTo(line) >= 0) {
+					allPreviousSmaller = false;
+					break;
 				}
 			}
+			
+			// Output if all previous are smaller OR current is smaller than last output
+			if (allPreviousSmaller || (lastOutput != null && line.compareTo(lastOutput) < 0)) {
+				w.println(line);
+				lastOutput = line;
+			}
+			
+			// Add current line to previous lines
+			allPrevious.add(line);
 		}
 	}
 
